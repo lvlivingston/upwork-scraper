@@ -1,6 +1,7 @@
 # Exploring Selenium with Upwork
 
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -14,8 +15,13 @@ load_dotenv()
 upwork_username = os.getenv("UPWORK_USERNAME")
 upwork_password = os.getenv("UPWORK_PASSWORD")
 
-# Set up the WebDriver (use the path to your ChromeDriver executable)
-driver = webdriver.Chrome(executable_path='../chromedriver-win64/chromedriver.exe')
+# Set up ChromeOptions
+chrome_options = Options()
+chrome_options.binary_location = '../chrome-win64/chrome.exe'  # Update this path with your Chrome executable path
+chrome_options.add_argument("--headless")  # Optional: run Chrome in headless mode
+
+# Set up the WebDriver with ChromeOptions
+driver = webdriver.Chrome(options=chrome_options)
 
 # Navigate to the Upwork page
 driver.get("https://www.upwork.com/nx/find-work/saved-jobs")
